@@ -1,0 +1,13 @@
+#container {
+    float: right;
+}
+
+button {
+    display: block;
+    width: 100%;
+    margin: 10px 0px;
+}
+
+.hidden {
+    display: none;
+}
