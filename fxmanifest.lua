@@ -3,6 +3,8 @@ game 'gta5'
 
 client_script 'cl_races.lua'
 
+server_script 'sv_races.lua'
+
 ui_page 'html/app.html'
 
 files {
