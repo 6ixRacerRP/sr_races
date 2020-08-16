@@ -44,6 +44,11 @@ $("document").ready(function() {
         // load race button clicked
     })
 
+    $("#exit").click(function() {
+        $("#mainmenu").toggleClass("hidden");
+        $.post("http://sr_races/NUIFocusOff", JSON.stringify({}));
+    })
+
     document.onkeyup = function(data) {
         if (data.which == 27) { //ESC Key
             $("#container").toggleClass("hidden");

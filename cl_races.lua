@@ -80,7 +80,7 @@ Citizen.CreateThread(function()
                 checkpointcount = checkpointcount + 1
 
                 -- Add checkpoint to array.
-                table.insert(recordedCheckpoints, {coords = coords})
+                table.insert(recordedCheckpoints, {blip = blip, coords = coords})
 
                 -- Wait 1s before being able to place new blip
                 Citizen.Wait(1000)

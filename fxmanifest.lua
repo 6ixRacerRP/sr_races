@@ -1,9 +1,9 @@
 fx_version 'bodacious'
 game 'gta5'
 
-client_script 'cl_races.lua'
-
 server_script 'sv_races.lua'
+
+client_script 'cl_races.lua'
 
 ui_page 'html/app.html'
 
