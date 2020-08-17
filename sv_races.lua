@@ -24,6 +24,18 @@ AddEventHandler("sr_races:sv_saverace", function(name, laps, recordedCheckpoints
     savePlayerData(source, playerRaces)
 end)
 
+RegisterNetEvent("sr_races:sv_loadraces")
+AddEventHandler("sr_races:sv_loadraces", function()
+    local playerRaces = loadPlayerData(source)
+    local raceNames = {}
+
+    for name, race in pairs(playerRaces) do
+        table.insert(raceNames, name)
+    end
+    
+    TriggerClientEvent("sr_races:cl_loadraces", source, raceNames)
+end)
+
 -----------------------------------------------------------
 ---                     FUNCTIONS                       ---
 -----------------------------------------------------------

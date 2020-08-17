@@ -20,10 +20,22 @@ local recordedCheckpoints = {}
 local checkpointcount = 0
 
 -----------------------------------------------------------
+---                     NET EVENTS                      ---
+-----------------------------------------------------------
+RegisterNetEvent("sr_races:cl_loadraces")
+AddEventHandler("sr_races:cl_loadraces", function(raceNames)
+    SendNUIMessage({
+        ui = "loadraces",
+        raceNames = json.encode(raceNames),
+        status = true
+    })
+end)
+
+-----------------------------------------------------------
 ---                   NUI CALLBACKS                     ---
 -----------------------------------------------------------
 RegisterNUICallback('NUIFocusOff', function(data)
-    show_nui(false)
+    SetNuiFocus(false, false)
     raceStatus.state = RACE_STATE_NONE
 end)
 
@@ -53,11 +65,19 @@ RegisterNUICallback('save_race', function(data)
     TriggerServerEvent("sr_races:sv_saverace", data.name, data.laps, recordedCheckpoints)
 end)
 
+RegisterNUICallback('load_races', function(data)
+    TriggerServerEvent("sr_races:sv_loadraces")
+end)
+
 -----------------------------------------------------------
 ---                        MAIN                         ---
 -----------------------------------------------------------
 RegisterCommand('raceui', function(source, args)
-    show_nui(true)
+    SetNuiFocus(true, true)
+    SendNUIMessage({
+        ui = "raceui",
+        status = true
+    })
 end, false)
 
 -- Checkpoint recording thread
@@ -104,15 +124,6 @@ end)
 -----------------------------------------------------------
 ---                     FUNCTIONS                       ---
 -----------------------------------------------------------
--- Showing and hiding NUI
-function show_nui(bool) 
-    SetNuiFocus(bool, bool)
-    SendNUIMessage({
-        ui = "raceui",
-        status = bool,
-    })
-end
-
 -- Helper function to clean up recording blips
 function cleanupRecording()
     -- Remove map blips and clear recorded checkpoints
